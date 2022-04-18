@@ -33,6 +33,7 @@ const StyledToggle = styled.div`
         color: #aaaaaa;
         background: transparent;
         z-index: 20;
+        transition: all 0.5s;
     }
 
     & button.active {
