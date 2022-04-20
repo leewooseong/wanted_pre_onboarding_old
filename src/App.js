@@ -1,5 +1,6 @@
 import Toggle from "./components/Toggle";
 import Tab from "./components/Tab";
+import Slider from "./components/Slider";
 import Input from "./components/Input";
 import Dropdown from "./components/Dropdown";
 
@@ -12,6 +13,8 @@ function App() {
             <Toggle />
             <h1>2. Tab.js</h1>
             <Tab />
+            <h1>3. Slider.js</h1>
+            <Slider />
             <h1>4. Input.js</h1>
             <Input />
             <h1>5. Dropdown.js</h1>
