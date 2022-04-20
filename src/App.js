@@ -1,6 +1,7 @@
 import Toggle from "./components/Toggle";
 import Tab from "./components/Tab";
 import Input from "./components/Input";
+import Dropdown from "./components/Dropdown";
 
 import "./App.css";
 
@@ -13,6 +14,8 @@ function App() {
             <Tab />
             <h1>4. Input.js</h1>
             <Input />
+            <h1>5. Dropdown.js</h1>
+            <Dropdown />
         </div>
     );
 }
