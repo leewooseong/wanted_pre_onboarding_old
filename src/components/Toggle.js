@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import React, { useRef, useState } from "react";
+
+// 불필요한 CSS 제거하기
 const StyledToggle = styled.div`
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     position: relative;
     width: 400px;
@@ -12,7 +14,8 @@ const StyledToggle = styled.div`
     border-radius: 50px;
     border: 4px solid #ebebeb;
 
-    & .active-box {
+    &::after {
+        content: "";
         position: absolute;
         left: 0;
         width: 50%;
@@ -24,6 +27,7 @@ const StyledToggle = styled.div`
         z-index: 10;
         transform: translateX(${(props) => props.location});
     }
+
     & button {
         width: 50%;
         margin: 0;
@@ -46,8 +50,6 @@ const Toggle = () => {
     const [active, setActive] = useState("default-btn");
 
     const handleClick = (e) => {
-        console.log(e.target.className);
-        console.log("active state: ", active);
         if (e.target.className.includes("active")) {
             return;
         }
@@ -57,7 +59,6 @@ const Toggle = () => {
     // rendering 함수
     return (
         <StyledToggle location={active === "default-btn" ? "0px" : "200px"}>
-            <div className="active-box"></div>
             <button
                 className={
                     active === "default-btn"
@@ -81,10 +82,3 @@ const Toggle = () => {
 };
 
 export default Toggle;
-
-// Toggle 요구 사항
-// 1. 클릭할 때 글자의 강조가 바뀌어야 한다.
-// 2. 클릭하는 버튼으로 흰색 박스가 표시되어야 한다.
-
-// 참고
-// $ 빼먹지 말자.. -> 어려웠던 점으로 적기 이걸로 해서 styled-component에 대한 이해가 증가했다고 적기
