@@ -1,69 +1,78 @@
 import styled from "styled-components";
 import React, { useRef, useState } from "react";
 const StyledForm = styled.form`
-    display: inline-flex;
+    display: flex;
+    width: 270px;
+    height: 165px;
     flex-direction: column;
     justify-content: center;
     margin: 30px;
-`;
-const InputWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
 
-    position: relative;
-    margin-bottom: 5px;
-    & button {
+    & div {
+        display: flex;
+        flex-direction: column;
+
+        position: relative;
+        margin-bottom: 5px;
+        & button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: 12px;
+            top: 35px;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+        }
+        &.email-wrapper img {
+            position: absolute;
+            width: 15px;
+            right: 20px;
+            top: 35px;
+        }
+        &.pw-wrapper img {
+            position: relative;
+            width: 20px;
+            right: 5px;
+            top: 0;
+        }
+    }
+
+    & label {
+        display: inline-block;
+        margin: 5px;
+        font-size: 12px;
+        color: gray;
+    }
+    & input {
+        width: 250px;
+        height: 30px;
+        padding-left: 10px;
+        border: 1px solid rgb(217 217 216);
+        border-radius: 5px;
+        background-color: rgb(244 244 249);
+        ::placeholder {
+            color: rgb(217 217 216);
+        }
+        &:focus,
+        &:active {
+            outline: 1px solid #999;
+        }
+    }
+    & p {
+        padding-left: 5px;
+        color: #d73333;
+        font-size: 10px;
+    }
+    & p.blind {
         position: absolute;
-        width: 20px;
-        height: 20px;
-        right: 12px;
-        top: 35px;
-        padding: 0;
-        border: none;
-        background-color: transparent;
-    }
-    & img {
-        position: ${(props) =>
-            props.className === "email-wrapper" ? "absolute" : "inline-block"};
-        width: ${(props) =>
-            props.className === "email-wrapper" ? "15px" : "20px"};
-        right: ${(props) =>
-            props.className === "email-wrapper" ? "15px" : "0"};
-        top: ${(props) => (props.className === "email-wrapper" ? "35px" : "0")};
+        width: 1px;
+        height: 1px;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
     }
 `;
-const StyledLabel = styled.label`
-    display: inline-block;
-    margin: 5px;
-    font-size: 12px;
-    color: gray;
-`;
-const StyledInput = styled.input`
-    width: 250px;
-    height: 30px;
-    padding-left: 10px;
-    border: 1px solid rgb(217 217 216);
-    border-radius: 5px;
-    background-color: rgb(244 244 249);
-    ::placeholder {
-        color: rgb(217 217 216);
-    }
-    &:focus,
-    &:active {
-        outline: 1px solid #999;
-    }
-`;
-const StyledP = styled.p`
-    color: #d73333;
-    font-size: 10px;
-`;
-const BlindP = styled.p`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-`;
+
 const Input = () => {
     // email 관련 Hook
     const [emailValid, setEmailValid] = useState(false);
@@ -120,9 +129,9 @@ const Input = () => {
     // rendering 함수
     return (
         <StyledForm className="input_cont">
-            <InputWrapper className="email-wrapper">
-                <StyledLabel htmlFor="email-inp">E-mail</StyledLabel>
-                <StyledInput
+            <div className="email-wrapper">
+                <label htmlFor="email-inp">E-mail</label>
+                <input
                     type="email"
                     maxLength={50}
                     name="email"
@@ -139,15 +148,12 @@ const Input = () => {
                     }
                     alt=""
                 />
-            </InputWrapper>
-            {showAlert ? (
-                <StyledP>Invalid e-mail address.</StyledP>
-            ) : (
-                <BlindP>Invalid e-mail address.</BlindP>
-            )}
-            <InputWrapper className="pw-wrapper">
-                <StyledLabel htmlFor="password-inp">Password</StyledLabel>
-                <StyledInput
+            </div>
+            <p className={showAlert ? "" : "blind"}>Invalid e-mail address.</p>
+
+            <div className="pw-wrapper">
+                <label htmlFor="password-inp">Password</label>
+                <input
                     type={showPW ? "text" : "password"}
                     name="password"
                     id="password-inp"
@@ -163,7 +169,7 @@ const Input = () => {
                         alt="비밀번호 표시 여부 이미지"
                     />
                 </button>
-            </InputWrapper>
+            </div>
         </StyledForm>
     );
 };
