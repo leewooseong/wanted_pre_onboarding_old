@@ -175,7 +175,3 @@ const Dropdown = () => {
 };
 
 export default Dropdown;
-
-// li 라인 중복 이슈 해결
-// 코드 정리
-// li 항목 선택 시 검색 초기화 설정
