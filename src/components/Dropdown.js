@@ -23,20 +23,10 @@ const StyledDropdown = styled.div`
         margin: 0;
         vertical-align: middle;
     }
-    & button {
+
+    & div img {
         position: absolute;
         right: 10px;
-        padding: 0;
-        margin: 0;
-        width: 10px;
-        height: 10px;
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-    }
-
-    & button img {
-        vertical-align: top;
         width: 10px;
         height: 10px;
     }
@@ -44,7 +34,6 @@ const StyledDropdown = styled.div`
     & ul {
         position: absolute;
         top: 40px;
-        /* bottom: 40px; */
         padding: 0;
         box-sizing: border-box;
         list-style: none;
@@ -63,6 +52,13 @@ const StyledDropdown = styled.div`
     & li:hover {
         background-color: #eeeeee;
     }
+    & li:first-child {
+        border-bottom: ${(props) =>
+            props.searchborder === 0 ? "none" : "1px solid #000000"};
+    }
+    & li:first-child:hover {
+        background-color: transparent;
+    }
     & li > input {
         vertical-align: top;
         width: 100%;
@@ -70,12 +66,6 @@ const StyledDropdown = styled.div`
         padding: 0;
         border: none;
         font-size: 16px;
-    }
-    & li:first-child {
-        border-bottom: 1px solid #000000;
-    }
-    & li:first-child:hover {
-        background-color: transparent;
     }
     & li > input:focus {
         outline: none;
@@ -126,48 +116,25 @@ const Dropdown = () => {
         "CAFFE AU LAIT",
         "CAFE CON LECHE",
     ];
-    const [menuList, setMenuList] = useState([
-        "ESPRESSO",
-        "ESPRESSO DOPPIO",
-        "RISTRETTO",
-        "LUNGO",
-        "CAFE MACCHIATO",
-        "CAFE CREME",
-        "CAFE NOISETTE",
-        "CAFE CORTADO",
-        "CAPPUCCINO",
-        "DRY CAPPUCCINO",
-        "CAFFE AMERICANO",
-        "CAFE CON HIELO",
-        "BREVE",
-        "MOCHA BREVE",
-        "MOCHA",
-        "CAFFE AFFOGATO",
-        "VIENNOIS",
-        "CON PANNA",
-        "FLAT WHITE",
-        "BLACK EYE",
-        "CAFFE LATTE",
-        "CAFFE AU LAIT",
-        "CAFE CON LECHE",
-    ]);
-
-    const searchRef = useRef(null);
-    const [menu, setMenu] = useState("Choose Menu");
+    const [menuList, setMenuList] = useState([...menuData]);
+    const [chosenMenu, setChosenMenu] = useState("Choose Menu");
     const [showMenuList, setShowMenuList] = useState(false);
+    const searchRef = useRef(null);
+
     const showDropdownList = (e) => {
-        if (setShowMenuList) {
+        if (showMenuList) {
             searchRef.current.value = "";
             setMenuList(menuData);
         }
         setShowMenuList(!showMenuList);
     };
     const chooseMenu = (e) => {
-        setMenu(e.target.innerText);
+        searchRef.current.value = "";
+        setMenuList(menuData);
+        setChosenMenu(e.target.innerText);
         setShowMenuList(false);
-        console.log(searchRef.current);
     };
-    const handleChange = (e) => {
+    const filterMenu = (e) => {
         setMenuList(
             menuData.filter((value) =>
                 value.includes(e.target.value.toUpperCase())
@@ -176,12 +143,10 @@ const Dropdown = () => {
     };
 
     return (
-        <StyledDropdown>
+        <StyledDropdown searchborder={menuList.length}>
             <div onClick={showDropdownList}>
-                <p>{menu}</p>
-                <button>
-                    <img src="images/drop-down-arrow.svg" alt="" />
-                </button>
+                <p>{chosenMenu}</p>
+                <img src="images/drop-down-arrow.svg" alt="" />
             </div>
             <ul className={showMenuList ? "" : "blind"}>
                 <li>
@@ -195,7 +160,7 @@ const Dropdown = () => {
                         name=""
                         id=""
                         placeholder="Search Menu"
-                        onChange={handleChange}
+                        onChange={filterMenu}
                         ref={searchRef}
                     />
                 </li>
@@ -210,8 +175,7 @@ const Dropdown = () => {
 };
 
 export default Dropdown;
-// Dropdown 요구 사항
-// 1. 화살표 버튼을 누르면 토글창 띄우기
-// 2. 토글창 내용 몇개만 보여주기
-// 3. 검색하면 필터링된 내용만 보여주기
-// 4. 토글창에서 클릭하면 입력창에 해당 내용 보여주기
+
+// li 라인 중복 이슈 해결
+// 코드 정리
+// li 항목 선택 시 검색 초기화 설정
