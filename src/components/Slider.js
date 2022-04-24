@@ -2,7 +2,8 @@ import styled from "styled-components";
 import React, { useState } from "react";
 
 const StyledForm = styled.form`
-    display: inline-flex;
+    display: flex;
+    width: 400px;
     flex-direction: column;
     justify-content: center;
     margin: 30px;
@@ -23,10 +24,6 @@ const StyledForm = styled.form`
     }
     & div span {
         margin-left: 5px;
-    }
-    & input {
-        width: 400px;
-        cursor: pointer;
     }
     & input[type="range"] {
         display: block;
@@ -54,7 +51,6 @@ const Slider = () => {
     const rangeData = [1, 25, 50, 75, 100];
     const [sliderValue, setSliderValue] = useState(1);
     const handleChange = (e) => {
-        console.log("is Changing");
         setSliderValue(e.target.value);
     };
     const handleClick = (e, value) => {
@@ -95,7 +91,3 @@ const Slider = () => {
 };
 
 export default Slider;
-
-// Slider 요구 사항
-// 1. slider의 값이 상단에 표시된다.
-// 2. 하단 버튼과 slider의 값이 매칭된다.
